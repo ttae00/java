@@ -4,20 +4,26 @@ package javaproject_2w;
 public class BioSwitch038 {
 	
 	//메서드 선언
-	public static String textInfor(PEI index, double value) {
+	public static String textInfor(PEI2 index, double value) {
 		String result= "";
 		switch(index) {
 		//enum은 상수를 묶은 클래스. 상수값에 따라 case로 분기하기 떄문에 enum도 가능.
-		case PHYSICAL: result="신체 지수: "; break;
-		case EMOTIONAL: result="감정 지수: "; break;
-		case INTELLECTUAL: result="지성 지수: "; break;
+		//한글 컴파일 확인
+		case 신체: result="신체 지수: "; break;
+		case 감정: result="감정 지수: "; break;
+		case 지성: result="지성 지수: "; break;
+		
+		/*
+		 * case PHYSICAL: result="신체 지수: "; break; case EMOTIONAL: result="감정 지수: ";
+		 * break; case INTELLECTUAL: result="지성 지수: "; break;
+		 */
 		default: result= "미결정: "; break;
 		} return result + (value*100);
 	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		PEI index= PEI.PHYSICAL;
+		PEI2 index= PEI2.신체;
 		double value=0.86;
 		System.out.println("신체 지수 주기값: "+index.getPei()); //enum을 int로 변환.해당 enum값 출력.
 		
