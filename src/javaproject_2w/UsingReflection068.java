@@ -73,8 +73,10 @@ public class UsingReflection068 {
 			for(Method m:method) {
 				if(m.getModifiers()>4000) {continue; }
 				System.out.printf("%s\t\t", toModi(m.getModifiers())); //제한자 종류
-				System.out.printf();
+			//	System.out.printf();
 			}
+		}catch(){
+			
 		}
 	}
 
