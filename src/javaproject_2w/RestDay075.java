@@ -60,6 +60,12 @@ public class RestDay075 {
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(cal.getTime());
 	}
+
+	//교재에 없는 부분
+	public static String toWantedDay(String rs, int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

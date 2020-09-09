@@ -97,6 +97,12 @@ public class Billboard083 implements Serializable{
 				+ lastweek + ", imagesrc=" + imagesrc 
 				 + ", artist=" + artist+"]";
 	}
+
+	/*
+	 * public static void clear() { // TODO Auto-generated method stub
+	 * 
+	 * }
+	 */
 	
 	
 }
