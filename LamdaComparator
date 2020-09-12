@@ -1,4 +1,4 @@
-람다 표현 방식
+람다 표현 방식, :: 사용
 
 
 1. Comparator 인터페이스를 구현한 객체를 정렬 기준으로 사용한다.
@@ -45,8 +45,22 @@ cards.sort(
 	(Card105 c1, Card105 c2) -> { return c1.getCardVal().compareTo(c2.getCardVal());}
 );
 
-5. 람다 표현에서 타입이 없엇도 알 수 있으므로 타입 제거 가능
+5. 람다 표현에서 타입이 없어도 알 수 있으므로 타입 제거 가능
 	
 cards.sort(
 	(c1,c2) ->{ return -c1.getCardVal().compareTo(c2.getCardVal());} );
+
 );
+
+6. c1.getCardVal().compareTo(c2.getCardVal())처럼 같은 메서드를 두 번 이상 사용할 때는 
+Comparator.comparing(타입::메서드이름)을 사용할 수 있다.
+
+Comparator<Card105> cmp= new Comparator.comparing(Card109::getCardVal);
+cards.sort(cmp);
+
+== cards.sort(Comparator.comparing(Card::getCardVal));
+
+7. static 메서드로 비교 기준을 만들어 정렬할 수 있다. Card109::compareCard는 Card109클래스의 static 메서드 compareCard()를 호출한다
+
+Comparator<Card105> cmp= Card109::compareCard;
+cards.resort(cmp);

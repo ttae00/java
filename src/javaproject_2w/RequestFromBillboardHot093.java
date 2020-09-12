@@ -150,7 +150,7 @@ public class RequestFromBillboardHot093 {
 				//빌보드 객체에 정보를 저장한다.
 				
 				Billboard083 board= new Billboard083(
-						toInt(rank),replace(song),toInt(__toStr(lastweek)),
+						toInt(rank),replace(song),toInt(toStr(lastweek)),
 						imageurl,artisturl,artist);
 				billboards.add(board);
 				
