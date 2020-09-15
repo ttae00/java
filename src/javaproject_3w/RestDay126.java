@@ -24,6 +24,8 @@ public class RestDay126 {
 	
 	public static boolean isRest(Calendar tod) {
 		boolean isRest= false;
+		
+		//Calendar.DAY_OF_WEEK는 일요일~토요일(1~7)의 요일을 반환한다.
 		if(tod.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY ||
 				tod.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY){
 			isRest= true;
