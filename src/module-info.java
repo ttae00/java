@@ -3,4 +3,5 @@ module javaproject {
 	requires javafx.controls;
 	requires org.json;
 	requires java.sql;
+	requires java.desktop;
 }
