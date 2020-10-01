@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,6 +23,8 @@ import javax.swing.JTextField;
  */
 
 public class MyFrame extends JFrame implements ActionListener{
+	
+	
 	
 	
 	JPanel displayPanel;
@@ -38,8 +42,13 @@ public class MyFrame extends JFrame implements ActionListener{
 	JButton btnCE; //전체 삭제
 	JButton btnDelete; //한 글자 삭제
 	
-	JButton btnDebug;
-	JLabel debugMsg;
+	
+	JLabel prev;
+	JLabel operator;
+	JLabel flag;
+	
+	//JButton btnDebug;
+	//JLabel debugMsg;
 	
 	public MyFrame() {
 		
@@ -77,14 +86,15 @@ public class MyFrame extends JFrame implements ActionListener{
 		
 		displayPanel.add(display);
 		
-		/*button*/
+		/*button 객체 생성*/
 		
 		buttons = new JButton[10];
 		
 		//버튼 객체 생성하기
 		for(int i=0; i<buttons.length; i++) {
 			buttons[i]= new JButton(Integer.toString(i)); // i를 string 값으로 받고 싶다.
-
+			buttons[i].addActionListener(this);
+			
 		}
 		
 		btnPlus= new JButton("+");
@@ -93,6 +103,13 @@ public class MyFrame extends JFrame implements ActionListener{
 		btnDivide= new JButton("/");
 		btnEqual= new JButton("=");
 		btnCE= new JButton("CE");
+		
+		btnPlus.addActionListener(this);
+		btnMinus.addActionListener(this);
+		btnMutiply.addActionListener(this);
+		btnDivide.addActionListener(this);
+		btnEqual.addActionListener(this);
+		btnCE.addActionListener(this);
 		
 		// 1 2 3 +
 		// 4 5 6 -
@@ -121,13 +138,29 @@ public class MyFrame extends JFrame implements ActionListener{
 		buttonPanel.add(btnCE);
 		
 		//debugPanel에 debugMsg와 btnDebug를 만들어서 붙이겠다.
-		debugMsg = new JLabel("Start Debug");
+		
+		prev= new JLabel("");
+		operator= new JLabel("");
+		flag= new JLabel("");
+		
+		debugPanel.add( new JLabel("PREV: "));
+		debugPanel.add(prev);
+		
+		debugPanel.add( new JLabel("OPERATOR: "));
+		debugPanel.add(operator);
+		
+		debugPanel.add( new JLabel("FLAG: "));
+		debugPanel.add(flag);
+		
+		
+		
+		/*debugMsg = new JLabel("Start Debug");
 		btnDebug = new JButton("Debug Button");
 		
 		btnDebug.addActionListener(this); //리스너를 이벤트소스에 등록한다
 		
 		debugPanel.add(debugMsg);
-		debugPanel.add(btnDebug);
+		debugPanel.add(btnDebug); */
 		
 		
 		//frame에 panel 붙이기
@@ -149,15 +182,103 @@ public class MyFrame extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource() == btnDebug) {
-			
-			if(debugMsg.getText().equals("Start Debug")) {
-				debugMsg.setText("on working");				
-			}else {
-				debugMsg.setText("Start Debug");
-				
+		
+		double op1, op2;
+		double result;
+		
+		//result list 추가, bt....
+		List<Double> res= new ArrayList<>();
+		
+		for(int i=0; i<buttons.length; i++) {
+			if(e.getSource() == buttons[i]) {
+				//가장 첫번 째 숫자 입력
+				if(display.getText().equals("0")) {
+					System.out.println("뭐냐");
+					display.setText(""+i);
+				}else {
+					//기존꺼 있으니까 그 다음 누르는 숫자
+					System.out.println("2번쨰 ");
+					if(operator.getText().equals("")) {
+						display.setText( display.getText() + i);
+					}else {
+						System.out.println("요건?");
+						if(flag.getText().equals("")) {
+							display.setText(""+i);
+							flag.setText("#");
+						}else {
+							System.out.println("마지막!!");
+							display.setText( display.getText()+i);
+						}
+					}
+				}
 			}
 		}
+		
+		if(e.getSource()==btnEqual) {
+			//double op1, op2, result;
+			op1= Double.parseDouble(prev.getText());
+			op2= Double.parseDouble(display.getText());
+			
+			if(operator.getText().equals("+")) {
+				result= op1+ op2;
+				display.setText(""+ result);
+				res.add(result);
+				System.out.println(res);
+			}
+			if(operator.getText().equals("-")) {
+				result= op1 - op2;
+				display.setText(""+ result);
+				res.add(result);
+				System.out.println(res);
+			}
+			
+			if(operator.getText().equals("*")) {
+				result= op1 * op2;
+				display.setText(""+ result);
+				res.add(result);
+				System.out.println(res);
+			}
+			if(operator.getText().equals("/")) {
+				result= op1 / op2;
+				display.setText(""+ result);
+				res.add(result);
+				System.out.println(res);
+			}
+			
+			
+		
+		}
+		
+		if(e.getSource() == btnPlus) {
+			prev.setText(display.getText());
+			operator.setText("+");
+			flag.setText("");
+		}
+		
+		if(e.getSource() == btnMinus) {
+			prev.setText(display.getText());
+			operator.setText("-");
+			flag.setText("");
+		}
+		if(e.getSource() == btnMutiply) {
+			prev.setText(display.getText());
+			operator.setText("*");
+			flag.setText("");
+		}
+		if(e.getSource() == btnDivide) {
+			prev.setText(display.getText());
+			operator.setText("-");
+			flag.setText("");
+		}
+		
+		if(e.getSource() ==btnCE) {
+			display.setText("0");
+			prev.setText("");
+			operator.setText("");
+			flag.setText("");
+		}
+		
+		
 	}
 	
 }
