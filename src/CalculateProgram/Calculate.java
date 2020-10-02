@@ -1,3 +1,15 @@
+/*
+ * 요구사항:
+	1. 기본 연산(+,-,*,/) 가능
+	2. 전체 삭제 가능(label 부분 더블 클릭 시 텍스트 모두 삭제)
+	3. C 버튼으로 직전 입력값 삭제 가능
+	4. 일정 길이 이상 입력시 추가 입력 불가능(텍스트 길이 25초과시 추가 입력 불가능)
+	5. 음수 계산 불가능
+	6. 10,000,000 이상 숫자끼리 계산 불가능
+	7. 우선 연산자부터 계산(*,/ 먼저) 
+ * 
+ */
+
 package CalculateProgram;
 
 import java.awt.BorderLayout;
@@ -28,6 +40,8 @@ public class Calculate extends JFrame{
 		
 	}
 	
+	
+	
 	JLabel label;
 	JLabel info;
 	int flag = 0;
@@ -35,6 +49,7 @@ public class Calculate extends JFrame{
 	
 
 	public Calculate() {
+		
 		super("CACULATION");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -48,7 +63,7 @@ public class Calculate extends JFrame{
 		c.add(CP,BorderLayout.SOUTH);
 		
 	
-		this.setSize(500,600);
+		this.setSize(500,500);
 		setVisible(true);
 	}
 	
@@ -154,19 +169,23 @@ public class Calculate extends JFrame{
 							// TODO Auto-generated method stub
 							int n= label.getText().length()-1;
 							
-							if(n==0) {
-								label.setText("");
-								info.setText("수식을 입력하세요.");
-								flag= 0;
-								
-							}else if(n >0 && n<=10) {
-								label.setFont(new Font("맑은 고딕",0,40));
-								label.setText(label.getText().substring(0,n));
-								info.setText("수식을 지우는 중입니다");
-							}else {
-								label.setFont(new Font("맑은 고딕",0,35));
-								label.setText(label.getText().substring(0, n));
-								info.setText("수식을 지우는 중입니다");
+							try {
+								if(n==0) {
+									label.setText("");
+									info.setText("수식을 입력하세요.");
+									flag= 0;
+									
+								}else if(n >0 && n<=10) {
+									label.setFont(new Font("맑은 고딕",0,40));
+									label.setText(label.getText().substring(0,n));
+									info.setText("수식을 지우는 중입니다");
+								}else {
+									label.setFont(new Font("맑은 고딕",0,35));
+									label.setText(label.getText().substring(0, n));
+									info.setText("수식을 지우는 중입니다");
+								}
+							}catch(IndexOutOfBoundsException ee) {
+								info.setText("지울 수 있는 수식이 없습니다.");
 							}
 						}
 					});
@@ -228,22 +247,35 @@ public class Calculate extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			String s= label.getText();
-			double result= Calculator(s);
-			label.setFont(new Font("맑은 고딕", 0, 40));
 			
-			if(result < 0) {
-				info.setText("0  이상 계산만 가능합니다.");
-				label.setText(Double.toString(result));
-				flag =1;
+			
+			try {
+			
+				String s= label.getText();
+				double result= Calculator(s);
+				label.setFont(new Font("맑은 고딕", 0, 40));
+				
+				if(result < 0) {
+					
+					info.setText("0  이상 계산만 가능합니다.");
+					label.setText(Double.toString(result));
+					flag =1;
+					
+				}
+				
+				else if(result >= 10000000) {
+					info.setText("10,000,000 미만 범위만 계산 가능합니다.");
+					label.setText(Double.toString(result));
+				}
+				
+				else {
+					label.setText(Double.toString(result));
+					System.out.println("257: label.setText(Double.toString(result))");
+				}
+				
+			}catch(NumberFormatException eee) {
+				System.out.println("잘못된 범위 값");
 			}
-			
-			else if(result >= 10000000) {
-				info.setText("10,000,000 미만 범위만 계산 가능합니다.");
-				label.setText(Double.toString(result));
-			}
-			
-			else label.setText(Double.toString(result));
 		}
 		
 	}

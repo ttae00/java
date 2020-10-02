@@ -1,3 +1,9 @@
+/*
+ * 계산 프로그램 연습용 
+ * 
+ * 
+ */
+
 package CalculateProgram;
 
 import java.awt.BorderLayout;
