@@ -27,6 +27,7 @@ public class GetRidOfFly {
 			int sizeM= sc.nextInt();
 			
 			int[][] n= new int[sizeN][sizeN];
+			
 			for(int i=0; i<n.length; i++) {
 				for(int j=0; j<n[i].length; j++) {
 					if(sizeN>=5 && sizeN<=15) {
